@@ -106,7 +106,6 @@ public class AccountDAO {
                     "' AND password = '" + account.getPassword() + "'";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Account userAccount = new Account(rs.getInt("account_id"),
