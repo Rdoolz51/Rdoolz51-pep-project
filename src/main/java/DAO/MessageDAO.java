@@ -122,13 +122,16 @@ public class MessageDAO {
 
     public Message patchMessageByIdHandler(int id, String body) {
         Connection connection = ConnectionUtil.getConnection();
-
+            //cannot be more than 255chars
         try {
             String sql = "UPDATE message SET message_text = ? WHERE message_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(2, id);
             preparedStatement.setString(1, body);
 
+            if (body.length() >= 255) {
+                return null;
+            }
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
