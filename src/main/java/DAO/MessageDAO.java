@@ -2,7 +2,6 @@ package DAO;
 
 import Model.Message;
 import Util.ConnectionUtil;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +46,10 @@ public class MessageDAO {
 
             preparedStatement.executeUpdate();
 
-            ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
-            if (pkeyResultSet.next()) {
-                int generated_message_id = (int) pkeyResultSet.getLong(1);
-                return new Message(generated_message_id, message.getPosted_by(),
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if (rs.next()) {
+                int messageId = (int) rs.getLong(1);
+                return new Message(messageId, message.getPosted_by(),
                         message.getMessage_text(), message.getTime_posted_epoch());
             }
         } catch (SQLException e) {

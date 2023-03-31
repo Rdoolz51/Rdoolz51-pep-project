@@ -2,7 +2,6 @@ package DAO;
 
 import Model.Account;
 import Util.ConnectionUtil;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +42,10 @@ public class AccountDAO {
             }
 
             preparedStatement.executeUpdate();
-            ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
-            if (pkeyResultSet.next()) {
-                int generated_account_id = (int) pkeyResultSet.getLong(1);
-                return new Account(generated_account_id, account.getUsername(), account.getPassword());
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if (rs.next()) {
+                int accId = (int) rs.getLong(1);
+                return new Account(accId, account.getUsername(), account.getPassword());
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
