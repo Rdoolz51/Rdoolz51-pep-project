@@ -36,7 +36,8 @@ public class SocialMediaController {
 
         return app;
     }
-
+    // Numbered based on readme for testing
+    // 1
     private void postAccountHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
@@ -47,7 +48,7 @@ public class SocialMediaController {
             ctx.json(mapper.writeValueAsString(addedAccount));
         }
     }
-
+    // 2
     private void postLoginHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
@@ -59,7 +60,7 @@ public class SocialMediaController {
             ctx.json(mapper.writeValueAsString(loginAccount));
         }
     }
-
+    // 3
     private void postMessageHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Message message = mapper.readValue(ctx.body(), Message.class);
@@ -75,23 +76,21 @@ public class SocialMediaController {
         ctx.json(mapper.writeValueAsString(addedMessage));
 
     }
-
+    // 4
     private void getAllMessageHandler(Context ctx) throws JsonProcessingException {
         List<Message> messages = messageService.getAllMessages();
         ctx.json(messages);
     }
-
+    // 5
     private void getMessageByMessageIdHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         int id = Integer.parseInt(ctx.pathParam("message_id"));
         Message message = messageService.getMessageByMessageId(id);
         if (message != null) {
             ctx.json(mapper.writeValueAsString(message));
-        } else {
-            ctx.status(401);
         }
     }
-
+    // 6
     private void deleteMessageByIdHandler(Context ctx) throws JsonProcessingException {
         int id = Integer.parseInt(ctx.pathParam("message_id"));
         Message message = messageService.deleteMessageById(id);
@@ -102,7 +101,7 @@ public class SocialMediaController {
             ctx.status(200);
         }
     }
-
+    // 7
     private void patchMessageByIdHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Message body = mapper.readValue(ctx.body(), Message.class);
@@ -118,7 +117,7 @@ public class SocialMediaController {
 
         ctx.json(mapper.writeValueAsString(message));
     }
-
+    // 8
     private void getMessagesByAccountIdHandler(Context ctx) throws JsonProcessingException {
         int id = Integer.parseInt(ctx.pathParam("account_id"));
         List<Message> messages = messageService.getMessagesByAccountId(id);

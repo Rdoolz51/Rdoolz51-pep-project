@@ -37,7 +37,7 @@ public class AccountDAO {
 
             preparedStatement.setString(1, account.getUsername());
             preparedStatement.setString(2, account.getPassword());
-
+            //making sure that username is not blank and password is long enough.
             if (account.getUsername() == "" || account.getPassword().length() < 4) {
                 return null;
             }
